@@ -1,0 +1,46 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Experience - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-5xl font-bold mb-12 text-center gradient-text">Professional Experience</h1>
+        
+        <div class="space-y-8">
+            {% for exp in experiences %}
+            <div class="bg-slate-800/50 p-8 rounded-lg border border-purple-500/20 card-hover">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
+                    <div class="flex-1">
+                        <h3 class="text-3xl font-semibold text-purple-400 mb-2">{{ exp.title }}</h3>
+                        <p class="text-2xl text-gray-300">{{ exp.company }}</p>
+                        {% if exp.location %}
+                        <p class="text-gray-400 mt-1">
+                            <i class="fas fa-map-marker-alt mr-2"></i>{{ exp.location }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <span class="bg-purple-600/20 px-4 py-2 rounded-full text-gray-300">
+                            {{ exp.duration }}
+                        </span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-6">{{ exp.description }}</p>
+                
+                <h4 class="text-xl font-semibold mb-4 text-purple-300">Key Achievements:</h4>
+                <ul class="space-y-3">
+                    {% for achievement in exp.achievements.all %}
+                    <li class="text-gray-300 flex items-start">
+                        <i class="fas fa-check-circle text-purple-400 mr-3 mt-1"></i>
+                        <span>{{ achievement.description }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
