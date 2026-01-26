@@ -1,0 +1,189 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="pt-32 pb-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center">
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-purple-500">
+            {% else %}
+            <div class="w-32 h-32 rounded-full mx-auto mb-6 bg-purple-600 flex items-center justify-center text-4xl font-bold">
+                {{ profile.name|slice:":1" }}
+            </div>
+            {% endif %}
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                {{ profile.name }}
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-4">
+                {{ profile.title }}
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-gray-400 mb-8">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ profile.location }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ profile.email }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-phone"></i>
+                    <span>{{ profile.phone }}</span>
+                </div>
+            </div>
+            <div class="flex justify-center gap-4">
+                {% if profile.github_url %}
+                <a href="{{ profile.github_url }}" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-colors flex items-center gap-2">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                {% endif %}
+                {% if profile.linkedin_url %}
+                <a href="{{ profile.linkedin_url }}" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-colors flex items-center gap-2">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                {% endif %}
+                {% if profile.resume %}
+                <a href="{% url 'portfolio:download_resume' %}" class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-full transition-colors flex items-center gap-2">
+                    <i class="fas fa-download"></i> Resume
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Preview -->
+<section class="py-20 px-4 bg-slate-800/50">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center">
+            <i class="fas fa-user mr-3"></i>About Me
+        </h2>
+        <p class="text-lg text-gray-300 max-w-4xl mx-auto text-center leading-relaxed mb-8">
+            {{ profile.about|truncatewords:50 }}
+        </p>
+        <div class="text-center">
+            <a href="{% url 'portfolio:about' %}" class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-lg transition-colors">
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Preview -->
+<section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center">
+            <i class="fas fa-code mr-3"></i>Skills
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for category in skill_categories %}
+            <div class="bg-slate-800/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-colors card-hover">
+                <h3 class="text-xl font-semibold mb-4 text-purple-400">{{ category.name }}</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for skill in category.skills.all %}
+                    <span class="bg-purple-600/20 px-3 py-1 rounded-full text-sm">
+                        {{ skill.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Experience Preview -->
+<section class="py-20 px-4 bg-slate-800/50">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center">
+            <i class="fas fa-briefcase mr-3"></i>Recent Experience
+        </h2>
+        <div class="space-y-8">
+            {% for exp in experiences|slice:":2" %}
+            <div class="bg-slate-900/50 p-6 rounded-lg border border-purple-500/20 card-hover">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-purple-400">{{ exp.title }}</h3>
+                        <p class="text-xl text-gray-300">{{ exp.company }}</p>
+                    </div>
+                    <span class="text-gray-400 mt-2 md:mt-0">{{ exp.duration }}</span>
+                </div>
+                <ul class="space-y-2">
+                    {% for achievement in exp.achievements.all|slice:":3" %}
+                    <li class="text-gray-300 flex items-start">
+                        <i class="fas fa-chevron-right text-purple-400 mr-2 mt-1"></i>
+                        {{ achievement.description }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-8">
+            <a href="{% url 'portfolio:experience' %}" class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-lg transition-colors">
+                View All Experience
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Preview -->
+<section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center">
+            <i class="fas fa-laptop-code mr-3"></i>Featured Projects
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for project in projects %}
+            <div class="bg-slate-800/50 p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all card-hover">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                {% else %}
+                <div class="w-full h-48 bg-purple-600/20 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-project-diagram text-6xl text-purple-400"></i>
+                </div>
+                {% endif %}
+                
+                <h3 class="text-xl font-semibold mb-3 text-purple-400">{{ project.title }}</h3>
+                <p class="text-sm text-gray-400 mb-4">{{ project.technologies }}</p>
+                <p class="text-gray-300 mb-4">{{ project.description|truncatewords:20 }}</p>
+                
+                <div class="flex gap-2">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" class="flex-1 bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded text-center transition-colors">
+                        <i class="fab fa-github"></i> Code
+                    </a>
+                    {% endif %}
+                    {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-center transition-colors">
+                        <i class="fas fa-external-link-alt"></i> Live
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-8">
+            <a href="{% url 'portfolio:projects' %}" class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-lg transition-colors">
+                View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 px-4 bg-slate-800/50">
+    <div class="max-w-7xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8">Let's Work Together</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            I'm currently open to new opportunities and collaborations. 
+            Whether you have a question or just want to say hi, feel free to reach out!
+        </p>
+        <a href="{% url 'portfolio:contact' %}" class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            <i class="fas fa-envelope mr-2"></i>Get In Touch
+        </a>
+    </div>
+</section>
+{% endblock %}
