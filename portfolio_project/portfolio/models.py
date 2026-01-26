@@ -118,7 +118,7 @@ class Skill(models.Model):
         related_name='skills'
     )
     proficiency = models.IntegerField(
-        default=0,
+        default=50,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
     order = models.IntegerField(default=0)
