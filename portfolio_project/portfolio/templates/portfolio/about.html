@@ -75,7 +75,9 @@
                                 <span class="text-purple-400">{{ skill.proficiency }}%</span>
                             </div>
                             <div class="w-full bg-slate-700 rounded-full h-2">
-                                <div class="bg-purple-600 h-2 rounded-full" style="width: {{ skill.proficiency }}%"></div>
+                               <div class="bg-purple-600 h-2 rounded-full"
+                                    style="width: {{ skill.proficiency|default:0 }}%">
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
