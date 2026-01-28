@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from portfolio.models import *
 from datetime import date
-
+# Management command to populate portfolio with sample data
 class Command(BaseCommand):
     help = 'Populate portfolio with sample data from CV'
 
