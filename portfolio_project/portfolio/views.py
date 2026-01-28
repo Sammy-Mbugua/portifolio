@@ -8,7 +8,7 @@ from .models import (
     Project, ContactMessage, SocialLink, SkillCategory
 )
 from .forms import ContactForm
-
+#home view
 def home(request):
     """Home page view"""
     try:
@@ -33,7 +33,7 @@ def home(request):
     
     return render(request, 'portfolio/home.html', context)
 
-
+#about view
 def about(request):
     """About page view"""
     profile = Profile.objects.first()
@@ -48,7 +48,7 @@ def about(request):
     
     return render(request, 'portfolio/about.html', context)
 
-
+#experience list view
 def experience_list(request):
     """Experience list page"""
     experiences = Experience.objects.all()
@@ -59,7 +59,7 @@ def experience_list(request):
     
     return render(request, 'portfolio/experience.html', context)
 
-
+#projects list view
 def projects_list(request):
     """Projects list page with pagination"""
     projects = Project.objects.all()
@@ -80,7 +80,7 @@ def projects_list(request):
     
     return render(request, 'portfolio/projects.html', context)
 
-
+#project detail view
 def project_detail(request, pk):
     """Individual project detail page"""
     project = get_object_or_404(Project, pk=pk)
@@ -93,7 +93,7 @@ def project_detail(request, pk):
     
     return render(request, 'portfolio/project_detail.html', context)
 
-
+#contact view
 def contact(request):
     """Contact page with form"""
     profile = Profile.objects.first()

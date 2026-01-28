@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+# Profile model
 class Profile(models.Model):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=200)
@@ -26,7 +26,7 @@ class Profile(models.Model):
     def formatted_phone(self):
         return self.phone.replace(' ', '-')
 
-
+# Education model
 class Education(models.Model):
     degree = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)
@@ -49,7 +49,7 @@ class Education(models.Model):
     def duration(self):
         return f"{self.start_date.strftime('%b %Y')} - {self.end_date.strftime('%b %Y')}"
 
-
+# Experience model
 class Experience(models.Model):
     title = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
@@ -78,7 +78,7 @@ class Experience(models.Model):
             self.end_date = None
         super().save(*args, **kwargs)
 
-
+# Achievement model
 class Achievement(models.Model):
     experience = models.ForeignKey(
         Experience, 
