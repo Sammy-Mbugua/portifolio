@@ -28,7 +28,7 @@ class ContactForm(forms.ModelForm):
                 'required': True
             }),
         }
-    
+    # Custom validation for message field
     def clean_message(self):
         message = self.cleaned_data.get('message')
         if len(message) < 10:
