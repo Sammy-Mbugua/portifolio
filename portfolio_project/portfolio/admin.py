@@ -3,7 +3,7 @@ from .models import (
     Profile, Education, Experience, Achievement, 
     SkillCategory, Skill, Project, ContactMessage, SocialLink
 )
-# Achievement inline for Experience admin
+
 class AchievementInline(admin.TabularInline):
     model = Achievement
     extra = 1
