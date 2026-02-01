@@ -78,7 +78,7 @@ class Experience(models.Model):
             self.end_date = None
         super().save(*args, **kwargs)
 
-# Achievement model
+
 class Achievement(models.Model):
     experience = models.ForeignKey(
         Experience, 
