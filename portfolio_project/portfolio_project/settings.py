@@ -59,7 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'portfolio_project.wsgi.application'
+WSGI_APPLICATION = 'portfolio_project.wsgi.application '
 
 # if os.getenv("RAILWAY_ENVIRONMENT"):
 #     DATABASES = {
