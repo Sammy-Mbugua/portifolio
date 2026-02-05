@@ -21,7 +21,6 @@ class Command(BaseCommand):
             about="A computer science professional with a strong foundation in software development, networking, and business intelligence. Experienced in working with modern frameworks and tools like Laravel, Livewire, Power BI, and Python, delivering reliable solutions in fast-paced, team-oriented environments. Excellent at troubleshooting, collaborating in teams, and translating complex problems into smart software solutions."
         )
         self.stdout.write(self.style.SUCCESS(f'Created profile: {profile.name}'))
-        
         # Create Education
         Education.objects.all().delete()
         edu = Education.objects.create(
